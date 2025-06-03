@@ -49,10 +49,17 @@ public class UserGenerator {
         return new RegisterUser(NEW_EMAIL, NEW_PASSWORD, NEW_NAME);
     }
 
+    public static LoginUser getLoginDataWithWrongEmail() {
+        return new LoginUser("wrong@example.com", DEFAULT_PASSWORD);
+    }
+
+    public static LoginUser getLoginDataWithWrongPassword() {
+        return new LoginUser(DEFAULT_EMAIL, "wrongpassword");
+    }
+
     public enum UserField {
         EMAIL,
         PASSWORD,
         NAME
     }
 }
-
