@@ -42,11 +42,11 @@ public class UpdateUserTest {
 
     @Test
     @Parameters(method = "updateUserWithAuthorizationParameters")
-    @TestCaseName("ÐÐ·Ð¼ÐµÐ½ÐµÐ½Ð¸Ðµ Ð´Ð°Ð½Ð½ÑÑ Ð¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»Ñ Ñ Ð°Ð²ÑÐ¾ÑÐ¸Ð·Ð°ÑÐ¸ÐµÐ¹: {0}")
-    @DisplayName("ÐÐ±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð´Ð°Ð½Ð½ÑÑ Ð¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»Ñ")
-    @Description("ÐÑÐ¾Ð²ÐµÑÐºÐ° Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ Ð´Ð°Ð½Ð½ÑÑ Ð¿Ð¾Ð»ÑÐ·Ð¾Ð²Ð°ÑÐµÐ»Ñ Ñ Ð°Ð²ÑÐ¾ÑÐ¸Ð·Ð°ÑÐ¸ÐµÐ¹ Ð¸ Ð±ÐµÐ·. " +
-            "ÐÐ¶Ð¸Ð´Ð°ÐµÑÑÑ ÑÑÐ¿ÐµÑÐ½Ð¾Ðµ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¿ÑÐ¸ Ð½Ð°Ð»Ð¸ÑÐ¸Ð¸ ÑÐ¾ÐºÐµÐ½Ð° (ÐºÐ¾Ð´ 200) " +
-            "Ð¸ Ð¾ÑÐ¸Ð±ÐºÐ° Ð¿ÑÐ¸ Ð¾ÑÑÑÑÑÑÐ²Ð¸Ð¸ Ð°Ð²ÑÐ¾ÑÐ¸Ð·Ð°ÑÐ¸Ð¸ (ÐºÐ¾Ð´ 401)")
+    @TestCaseName("Изменение данных пользователя с авторизацией: {0}")
+    @DisplayName("Обновление данных пользователя")
+    @Description("Проверка обновления данных пользователя с авторизацией и без. " +
+            "Ожидается успешное обновление при наличии токена (код 200) " +
+            "и ошибка при отсутствии авторизации (код 401)")
     public void updateUserWithAuthorization(boolean isAuth, int status) {
         String token2 = "abc";
         if (isAuth) {
@@ -57,7 +57,7 @@ public class UpdateUserTest {
         statusCode = responseUpdate.extract().statusCode();
         isUpdated = responseUpdate.extract().path("success");
 
-        Assert.assertEquals("ÐÑÐ¸Ð±ÐºÐ° Ð² ÐºÐ¾Ð´Ðµ Ð¸Ð»Ð¸ ÑÐµÐ»Ðµ Ð¾ÑÐ²ÐµÑÐ°", List.of(status, isAuth), List.of(statusCode, isUpdated));
+        Assert.assertEquals("Ошибка в коде или теле ответа", List.of(status, isAuth), List.of(statusCode, isUpdated));
     }
 
     private Object[][] updateUserWithAuthorizationParameters() {

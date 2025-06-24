@@ -40,8 +40,8 @@ public class LoginUserTest {
     }
 
     @Test
-    @DisplayName("ÐÐ¾Ð³Ð¸Ð½ Ñ Ð²Ð°Ð»Ð¸Ð´Ð½ÑÐ¼Ð¸ Ð´Ð°Ð½Ð½ÑÐ¼Ð¸")
-    @Description("ÐÑÐ¾Ð²ÐµÑÐºÐ° ÑÑÐ¿ÐµÑÐ½Ð¾Ð¹ Ð°Ð²ÑÐ¾ÑÐ¸Ð·Ð°ÑÐ¸Ð¸ Ñ ÐºÐ¾ÑÑÐµÐºÑÐ½ÑÐ¼Ð¸ ÑÑÐµÑÐ½ÑÐ¼Ð¸ Ð´Ð°Ð½Ð½ÑÐ¼Ð¸. ÐÐ¶Ð¸Ð´Ð°ÐµÑÑÑ ÐºÐ¾Ð´ Ð¾ÑÐ²ÐµÑÐ° 200 Ð¸ success=true")
+    @DisplayName("Логин с валидными данными")
+    @Description("Проверка успешной авторизации с корректными учетными данными. Ожидается код ответа 200 и success=true")
     public void loginUserWithValidData() {
         loginData = UserGenerator.getDefaultLoginData();
         ValidatableResponse responseLogin = User.loginUser(loginData);
@@ -49,14 +49,14 @@ public class LoginUserTest {
         statusCode = responseLogin.extract().statusCode();
         isLoggedIn = responseLogin.extract().path("success");
 
-        Assert.assertEquals("ÐÑÐ¸Ð±ÐºÐ° Ð² ÐºÐ¾Ð´Ðµ Ð¸Ð»Ð¸ ÑÐµÐ»Ðµ Ð¾ÑÐ²ÐµÑÐ°",
+        Assert.assertEquals("Ошибка в коде или теле ответа",
                 List.of(SC_OK, true),
                 List.of(statusCode, isLoggedIn));
     }
 
     @Test
-    @DisplayName("ÐÐ¾Ð³Ð¸Ð½ Ñ Ð½ÐµÐ²ÐµÑÐ½ÑÐ¼ email")
-    @Description("ÐÑÐ¾Ð²ÐµÑÐºÐ° Ð°Ð²ÑÐ¾ÑÐ¸Ð·Ð°ÑÐ¸Ð¸ Ñ Ð½ÐµÐºÐ¾ÑÑÐµÐºÑÐ½ÑÐ¼ email. ÐÐ¶Ð¸Ð´Ð°ÐµÑÑÑ ÐºÐ¾Ð´ Ð¾ÑÐ²ÐµÑÐ° 401 (Unauthorized) Ð¸ success=false")
+    @DisplayName("Логин с неверным email")
+    @Description("Проверка авторизации с некорректным email. Ожидается код ответа 401 (Unauthorized) и success=false")
     public void loginWithWrongEmail() {
         loginData = UserGenerator.getLoginDataWithWrongEmail();
         ValidatableResponse responseLogin = User.loginUser(loginData);
@@ -64,14 +64,14 @@ public class LoginUserTest {
         statusCode = responseLogin.extract().statusCode();
         isLoggedIn = responseLogin.extract().path("success");
 
-        Assert.assertEquals("ÐÑÐ¸Ð±ÐºÐ° Ð² ÐºÐ¾Ð´Ðµ Ð¸Ð»Ð¸ ÑÐµÐ»Ðµ Ð¾ÑÐ²ÐµÑÐ°",
+        Assert.assertEquals("Ошибка в коде или теле ответа",
                 List.of(SC_UNAUTHORIZED, false),
                 List.of(statusCode, isLoggedIn));
     }
 
     @Test
-    @DisplayName("ÐÐ¾Ð³Ð¸Ð½ Ñ Ð½ÐµÐ²ÐµÑÐ½ÑÐ¼ Ð¿Ð°ÑÐ¾Ð»ÐµÐ¼")
-    @Description("ÐÑÐ¾Ð²ÐµÑÐºÐ° Ð°Ð²ÑÐ¾ÑÐ¸Ð·Ð°ÑÐ¸Ð¸ Ñ Ð½ÐµÐºÐ¾ÑÑÐµÐºÑÐ½ÑÐ¼ Ð¿Ð°ÑÐ¾Ð»ÐµÐ¼. ÐÐ¶Ð¸Ð´Ð°ÐµÑÑÑ ÐºÐ¾Ð´ Ð¾ÑÐ²ÐµÑÐ° 401 (Unauthorized) Ð¸ success=false")
+    @DisplayName("Логин с неверным паролем")
+    @Description("Проверка авторизации с некорректным паролем. Ожидается код ответа 401 (Unauthorized) и success=false")
     public void loginWithWrongPassword() {
         loginData = UserGenerator.getLoginDataWithWrongPassword();
         ValidatableResponse responseLogin = User.loginUser(loginData);
@@ -79,7 +79,7 @@ public class LoginUserTest {
         statusCode = responseLogin.extract().statusCode();
         isLoggedIn = responseLogin.extract().path("success");
 
-        Assert.assertEquals("ÐÑÐ¸Ð±ÐºÐ° Ð² ÐºÐ¾Ð´Ðµ Ð¸Ð»Ð¸ ÑÐµÐ»Ðµ Ð¾ÑÐ²ÐµÑÐ°",
+        Assert.assertEquals("Ошибка в коде или теле ответа",
                 List.of(SC_UNAUTHORIZED, false),
                 List.of(statusCode, isLoggedIn));
     }
